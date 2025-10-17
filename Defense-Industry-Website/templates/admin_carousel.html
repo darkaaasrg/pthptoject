@@ -24,7 +24,6 @@
             <p class="mb-1 text-truncate">{{ item.desc }}</p>
           </a>
 
-          <!-- Кнопка видалення -->
           <form action="{{ url_for('delete_carousel_item', item_id=item.id) }}" method="POST" class="ms-3">
             <button type="submit" class="btn btn-danger btn-sm"
                     onclick="return confirm('Ви впевнені, що хочете видалити цей слайд?');">

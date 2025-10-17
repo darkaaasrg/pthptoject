@@ -1,21 +1,38 @@
 {% extends "base.html" %}
+{% block title %}Додати продукт{% endblock %}
 {% block content %}
 <div class="container mt-4">
   <h2>Додати новий продукт</h2>
   <form method="POST" enctype="multipart/form-data">
+    <!-- Обов'язково для Flask-WTF -->
+    {{ form.hidden_tag() }}
+
+    <!-- Назва продукту -->
     <div class="mb-3">
-      <label class="form-label">Назва продукту</label>
-      <input type="text" name="name" class="form-control" required>
+      {{ form.name.label(class="form-label") }}
+      {{ form.name(class="form-control", placeholder="Введіть назву продукту") }}
+      {% for error in form.name.errors %}
+          <span class="text-danger">{{ error }}</span>
+      {% endfor %}
     </div>
+
     <div class="mb-3">
-      <label class="form-label">Опис</label>
-      <textarea name="desc" class="form-control" rows="4" required></textarea>
+      {{ form.desc.label(class="form-label") }}
+      {{ form.desc(class="form-control", rows="4", placeholder="Детальний опис") }}
+      {% for error in form.desc.errors %}
+          <span class="text-danger">{{ error }}</span>
+      {% endfor %}
     </div>
+
     <div class="mb-3">
-      <label class="form-label">Зображення</label>
-      <input type="file" name="img_file" class="form-control" accept="image/*" required>
+      {{ form.img_file.label(class="form-label") }}
+      {{ form.img_file(class="form-control", accept="image/*") }}
+      {% for error in form.img_file.errors %}
+          <span class="text-danger">{{ error }}</span>
+      {% endfor %}
     </div>
-    <button type="submit" class="btn btn-success">Додати</button>
+
+    {{ form.submit(class="btn btn-success", value="Додати") }}
     <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Назад</a>
   </form>
 </div>

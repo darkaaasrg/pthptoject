@@ -1,8 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from sqlalchemy.orm import relationship # Не використовується, але гарно мати для майбутнього
 
 db = SQLAlchemy()
-
 
 # -------------------- Користувач (адмін) -------------------- #
 class User(UserMixin, db.Model):
@@ -21,7 +21,6 @@ class User(UserMixin, db.Model):
         return self.password == password
 
 
-# -------------------- Продукт -------------------- #
 class Product(db.Model):
     __tablename__ = "products"
 
@@ -33,8 +32,6 @@ class Product(db.Model):
     def __repr__(self):
         return f"<Product {self.name}>"
 
-
-# -------------------- Елемент каруселі -------------------- #
 class CarouselItem(db.Model):
     __tablename__ = "carousel_items"
 

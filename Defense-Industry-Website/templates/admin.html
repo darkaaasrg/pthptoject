@@ -1,21 +1,52 @@
 {% extends "base.html" %}
+{% block title %}Вхід в адмін панель{% endblock %}
 {% block content %}
 <h2 class="mb-4">Вхід в адмін панель</h2>
 
-{% if error %}
-<div class="alert alert-danger">{{ error }}</div>
-{% endif %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ 'danger' if category == 'error' else 'info' }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
 
 <form method="POST">
-{{  form.hidden_tag() }}
+    {{ form.hidden_tag() }}
     <div class="mb-3">
-        <label class="form-label">Логін</label>
-        <input type="text" name="username" class="form-control" required>
+        {{ form.username.label(class="form-label") }}
+        {{ form.username(class="form-control") }}
+        {% for error in form.username.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
     </div>
+
     <div class="mb-3">
-        <label class="form-label">Пароль</label>
-        <input type="password" name="password" class="form-control" required>
+        {{ form.password.label(class="form-label") }}
+        {{ form.password(class="form-control") }}
+        {% for error in form.password.errors %}
+            <span class="text-danger">{{ error }}</span>
+        {% endfor %}
     </div>
-    <button type="submit" class="btn btn-primary">Увійти</button>
+
+    {{ form.submit(class="btn btn-primary") }}
 </form>
 {% endblock %}
+
+<div class="d-flex">
+
+  <div class="bg-dark text-light p-3" style="width:241px; min-height:100vh;">
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2">
+        <a class="nav-link text-light" href="{{ url_for('admin_dashboard') }}">Продукти</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-light" href="{{ url_for('admin_carousel') }}">Карусель</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-light" href="{{ url_for('admin') }}">Адміни</a>
+
+      </li>
+    </ul>
+  </div>
+</div>

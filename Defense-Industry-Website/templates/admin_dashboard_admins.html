@@ -9,13 +9,11 @@
     <div class="col-md-9 col-lg-10 p-4">
       <h3 class="mb-4">Список адміністраторів</h3>
 
-      <!-- Пошук -->
       <form method="GET" class="mb-3 d-flex">
         <input type="text" name="q" class="form-control me-2" placeholder="Пошук адміністраторів..." value="{{ request.args.get('q', '') }}">
         <button class="btn btn-primary">Пошук</button>
       </form>
 
-      <!-- Таблиця адміністраторів -->
       <table class="table table-hover">
         <thead>
           <tr>
